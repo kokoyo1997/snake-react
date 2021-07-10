@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/snake-react/static/css/main.c67039ff.chunk.css",
+    "main.js": "/snake-react/static/js/main.4e698229.chunk.js",
+    "main.js.map": "/snake-react/static/js/main.4e698229.chunk.js.map",
+    "runtime-main.js": "/snake-react/static/js/runtime-main.8fb591e2.js",
+    "runtime-main.js.map": "/snake-react/static/js/runtime-main.8fb591e2.js.map",
+    "static/js/2.2466a576.chunk.js": "/snake-react/static/js/2.2466a576.chunk.js",
+    "static/js/2.2466a576.chunk.js.map": "/snake-react/static/js/2.2466a576.chunk.js.map",
+    "index.html": "/snake-react/index.html",
+    "static/css/main.c67039ff.chunk.css.map": "/snake-react/static/css/main.c67039ff.chunk.css.map",
+    "static/js/2.2466a576.chunk.js.LICENSE.txt": "/snake-react/static/js/2.2466a576.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8fb591e2.js",
+    "static/js/2.2466a576.chunk.js",
+    "static/css/main.c67039ff.chunk.css",
+    "static/js/main.4e698229.chunk.js"
+  ]
+}
