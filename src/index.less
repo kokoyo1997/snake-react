@@ -1,0 +1,173 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+.box{
+    display: flex;
+    justify-content: center;   
+    margin-top: 50px;
+}
+main{
+    padding: 26px;
+    width: 800px;
+    border-radius: 6px;
+    background: #3498DB;
+    text-align: center;
+    h1{
+        margin-bottom: 26px;
+        font-size: 30px;
+
+    }
+    .board{
+        display: grid;
+        padding: 1px;
+        float: left;
+        width: 448px;
+        height: 448px;        
+        grid-template-columns: repeat(20,1fr);
+        grid-template-rows: repeat(20,1fr);
+        row-gap: 1px;
+        column-gap: 1px;
+
+        border: 1px double #000;
+        .square{
+            border: 1px solid rgba(0, 0, 0, .2);
+            &.food{
+                border-radius: 4px;
+                background: rgba(255, 0, 0, .8);
+            }
+            &.snake{
+                border-radius: 4px;
+                background: rgba(0, 0, 0, .8);
+            }
+        }
+    }
+    .side{
+        float: left;
+        margin-left: 20px;
+        width: 280px;
+        .info{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 200px;
+            padding: 10px;
+            border:1px solid #000;
+            text-align: left;
+            color: rgba(255, 255, 255, .8);
+        }
+        .control{
+            margin-top: 30px;
+            height: 218px;
+            button{
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background: #5AC923;
+                cursor: pointer;
+            }
+            .operate{
+                position: relative;
+                margin: 25px auto;
+                width: 190px;
+                button{
+                    position: absolute;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 10px;
+                    background: #629FF5;
+                    &.up{
+                        top: 0;
+                        left: 65px;
+                    }
+                    &.down{
+                        top: 65px;
+                        left: 65px;
+                    }
+                    &.left{
+                        top: 65px;
+                        left: 0;
+                    }
+                    &.right{
+                        top: 65px;
+                        left: 130px;
+                    }
+                }
+            }
+        }
+    }
+    // &::after{
+    //     content: "";
+    //     display: block;
+    //     clear: both;
+    //     height: 0;
+    //     visibility: hidden;
+    // }
+}
+
+@media screen and (max-width:800px) {
+    main{
+        width: 500px;
+        .side{
+            margin-left:0;
+            margin-top: 10px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, .8);
+            border-radius: 10px;
+            .info{
+                width: 33%;
+                float: left;
+                height: 100px;
+                padding: 5px;
+                border: none;
+                border-right: 1px solid rgba(255, 255, 255, .5);
+            }
+            .control{
+                float: left;
+                height: 100px;
+                margin-top: 0;
+                padding-left: 20px;
+                
+                width: 67%;
+                .btns{
+                    float: right;
+                    margin-left: 50px;
+                    padding-top: 30px;
+                    padding-right: 10px;
+                }
+                .operate{
+                    float: right;
+                    margin: 0;
+                    width: 100px;
+                    height: 100px;
+        
+                    button{
+                        width: 40px;
+                        height: 40px;
+                        &.up{
+                            top: 10px;
+                            left: 42px;
+                        }
+                        &.down{
+                            top: 52px;
+                            left: 42px;
+                        }
+                        &.left{
+                            top: 52px;
+                            left: 0;
+                        }
+                        &.right{
+                            top: 52px;
+                            left: 84px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
