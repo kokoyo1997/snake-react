@@ -1,2 +1,2 @@
 # Snake Game in React
-link:
+link: https://kokoyo1997.github.io/snake-react
