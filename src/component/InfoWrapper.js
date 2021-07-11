@@ -1,10 +1,10 @@
-function InfoWrapper(){
+function InfoWrapper({time,score,hs,gs}){
     return (
         <div className="info">
-            <div className="socre">Score: 000</div>
-            <div className="time">Time: 14:38</div>
-            <div className="status">Status: || </div>
-            <div className="high-socre">High Score: 999</div>
+            <div className="socre">Score: {score}</div>
+            <div className="time">Time: {time}</div>
+            <div className="status">Status: {gs} </div>
+            <div className="high-socre">High Score: {hs}</div>
           </div>
     )
 }

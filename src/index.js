@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './font/iconfont.css';
 import Game from './component/Game'
 
 ReactDOM.render(
