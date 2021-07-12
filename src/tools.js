@@ -30,7 +30,7 @@ export const getCurTime = () => {
         m = "" + d.getMinutes(),
         s = "" + d.getSeconds();
 
-    let res = (h.length === 2 ? h : "0" + h) + ":" + (m.length === 2 ? m : "0" + m) + ":" + s;
+    let res = (h.length === 2 ? h : "0" + h) + ":" + (m.length === 2 ? m : "0" + m) + ":" + (s.length === 2 ? s : "0" + s);
     return res;
 }
 

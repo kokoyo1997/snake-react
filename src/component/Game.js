@@ -16,6 +16,8 @@ function Game(){
     const [direction,setDirection]=useState(DIRECTIONS.UP);
     const [gameState,setGameState]=useState(GAMESTATE.READY);
 
+    const [count,setCount]=useState(0);//用来指示蛇的更新
+
 
     const restart=()=>{
         setSnake([getRandomCoordinate()]);
@@ -59,48 +61,48 @@ function Game(){
         }
     },[]);
 
-    //蛇定时前进
+    // 蛇移动定时器
     useEffect(()=>{
-        let timer=null;
         if(gameState===GAMESTATE.RUN){
-            timer=setInterval(()=>{
- 
-                let cur=getSnakeHead(snake);
-                let new_head=DIRECTION_TICKS[direction](cur.x,cur.y);
-                let new_snake=[...snake];
-                new_snake.unshift(new_head);
-                
-                if(hitBorder(new_snake)){
-                    setGameState(GAMESTATE.OVER);
-                    updateHighest(score,highScore);
-                    setHighScore(getHighest());
-                    clearInterval(timer);
-                    return;
-                }else{
-                    let eatSelfIdx=eatSelf(new_snake);
-                    if(eatSelfIdx!==-1){ //吃到寄几，截掉，扣分
-                        setScore(prev=>Math.max(0,prev-2*(new_snake.length-eatSelfIdx)));
-                        new_snake=new_snake.slice(0,eatSelfIdx);
-                        
-                    }else{
-                        if(eatFood(new_snake,food)) { //吃到食物，加分，重新生成食物
-                            setFood(getRandomFood(new_snake));
-                            setScore(prev=>prev+new_snake.length);
-                        }else{
-                            new_snake.pop();
-                        }
-                    }
-                } 
-                setSnake(new_snake);
-                
+            let timer=setInterval(()=>{
+                setCount(c=>c+1);
             },200);
+            return ()=>{
+                clearInterval(timer);
+            }
         }
+    },[gameState]);
+
+    // 蛇移动，更新各类状态
+    useEffect(()=>{
+        let cur=getSnakeHead(snake);
+        let new_head=DIRECTION_TICKS[direction](cur.x,cur.y);
+        let new_snake=[...snake];
+        new_snake.unshift(new_head);
         
-        return ()=>{
-            console.log(`clear ${timer}`);
-            if(timer) clearInterval(timer);
-        }
-    });
+        if(hitBorder(new_snake)){
+            setGameState(GAMESTATE.OVER);
+            updateHighest(score,highScore);
+            setHighScore(getHighest());
+            return;
+        }else{
+            let eatSelfIdx=eatSelf(new_snake);
+            if(eatSelfIdx!==-1){ //吃到寄几，截掉，扣分
+                setScore(prev=>Math.max(0,prev-2*(new_snake.length-eatSelfIdx)));
+                new_snake=new_snake.slice(0,eatSelfIdx);
+                
+            }else{
+                if(eatFood(new_snake,food)) { //吃到食物，加分，重新生成食物
+                    setFood(getRandomFood(new_snake));
+                    setScore(prev=>prev+new_snake.length);
+                }else{
+                    new_snake.pop();
+                }
+            }
+        } 
+        setSnake(new_snake);
+    },[count]);
+
 
     //更新当前时间
     useEffect(()=>{
