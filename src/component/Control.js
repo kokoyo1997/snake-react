@@ -4,15 +4,15 @@ function Control({handleControl,handleProcess}){
     return (
         <div className="control">
             <div className="btns">
-              <button className="pause" name="pause" onClick={handleProcess}><span className="iconfont icon-ic_suspend"></span></button>
-              <button className="restart" name="restart" onClick={handleProcess}><span className="iconfont icon-ic_refresh"></span></button>
-              <button className="start" name="start" onClick={handleProcess}><span className="iconfont icon-ic_play"></span></button>
+              <button className="pause iconfont icon-ic_suspend" name="pause" onClick={handleProcess}></button>
+              <button className="restart iconfont icon-ic_refresh" name="restart" onClick={handleProcess}></button>
+              <button className="start iconfont icon-ic_play" name="start" onClick={handleProcess}></button>
             </div>
             <div className="operate">
-              <button className="up" name={DIRECTIONS.UP} onClick={handleControl}><span className="iconfont icon-ic_arrow_up"></span></button>
-              <button className="down" name={DIRECTIONS.BOTTOM} onClick={handleControl}><span className="iconfont icon-ic_arrow_down"></span></button>
-              <button className="left" name={DIRECTIONS.LEFT} onClick={handleControl}><span className="iconfont icon-ic_arrow_left"></span></button>
-              <button className="right" name={DIRECTIONS.RIGHT} onClick={handleControl}><span className="iconfont icon-ic_arrow_right"></span></button>
+              <button className="up iconfont icon-ic_arrow_up" name={DIRECTIONS.UP} onClick={handleControl}></button>
+              <button className="down iconfont icon-ic_arrow_down" name={DIRECTIONS.BOTTOM} onClick={handleControl}></button>
+              <button className="left iconfont icon-ic_arrow_left" name={DIRECTIONS.LEFT} onClick={handleControl}></button>
+              <button className="right iconfont icon-ic_arrow_right" name={DIRECTIONS.RIGHT} onClick={handleControl}></button>
             </div>
         </div>
     );

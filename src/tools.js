@@ -27,8 +27,10 @@ export const getRandomFood = (snake) => {
 export const getCurTime = () => {
     let d = new Date();
     let h = "" + d.getHours(),
-        m = "" + d.getMinutes();
-    let res = (h.length === 2 ? h : "0" + h) + ":" + (m.length === 2 ? m : "0" + m);
+        m = "" + d.getMinutes(),
+        s = "" + d.getSeconds();
+
+    let res = (h.length === 2 ? h : "0" + h) + ":" + (m.length === 2 ? m : "0" + m) + ":" + s;
     return res;
 }
 
@@ -78,15 +80,15 @@ export const hitBorder = snake => {
 //是否吃到自己
 export const eatSelf = snake => {
     let head = getSnakeHead(snake);
-    for (let i = snake.length-1; i > 0; i--) {
+    for (let i = snake.length - 1; i > 0; i--) {
         if (head.x === snake[i].x && head.y === snake[i].y) return i;
     }
     return -1;
 }
 
 //是否吃到食物
-export const eatFood = (snake,food) => {
-    let head=getSnakeHead(snake);
-    if(head.x===food.x&&head.y===food.y) return true;
+export const eatFood = (snake, food) => {
+    let head = getSnakeHead(snake);
+    if (head.x === food.x && head.y === food.y) return true;
     return false
 }

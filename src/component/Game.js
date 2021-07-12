@@ -64,7 +64,7 @@ function Game(){
         let timer=null;
         if(gameState===GAMESTATE.RUN){
             timer=setInterval(()=>{
-
+ 
                 let cur=getSnakeHead(snake);
                 let new_head=DIRECTION_TICKS[direction](cur.x,cur.y);
                 let new_snake=[...snake];
@@ -97,7 +97,8 @@ function Game(){
         }
         
         return ()=>{
-            clearInterval(timer);
+            console.log(`clear ${timer}`);
+            if(timer) clearInterval(timer);
         }
     });
 
@@ -111,11 +112,11 @@ function Game(){
         return ()=>{
             clearInterval(timer);
         }
-    });
+    },[]);
     return (
         <div className="box">
             <main>
-                <h1>Snake Game in React</h1>
+                <h1>Snake Game in React</h1> 
                 <Board 
                     snake={snake}
                     food={food}

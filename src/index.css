@@ -78,6 +78,7 @@ main .side .control button {
   border-radius: 50%;
   background: #5AC923;
   cursor: pointer;
+  outline: none;
 }
 main .side .control .btns button {
   margin-left: 5px;
