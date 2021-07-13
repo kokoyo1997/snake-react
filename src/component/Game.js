@@ -1,7 +1,7 @@
 import Board from "./Board";
 import InfoWrapper from "./InfoWrapper";
 import Control from "./Control";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { eatFood, eatSelf, getCurTime, getHighest, updateHighest } from "../tools";
 import { DIRECTIONS, DIRECTION_TICKS, GAMESTATE, KEY_CODES_MAPPER } from "../constants";
 import { getRandomCoordinate, getRandomFood, getSnakeHead, hitBorder } from "../tools";
@@ -17,8 +17,14 @@ function Game(){
     const [gameState,setGameState]=useState(GAMESTATE.READY);
 
     const [count,setCount]=useState(0);//用来指示蛇的更新
+    
+    //实时游戏状态
+    const statusRef=useRef(GAMESTATE.READY);
+    useEffect(()=>{
+        statusRef.current=gameState;
+    },[gameState]);
 
-
+    //重开
     const restart=()=>{
         setSnake([getRandomCoordinate()]);
         setFood(getRandomFood(snake));
@@ -28,6 +34,7 @@ function Game(){
 
     //控制方向 
     const handleControl=({target})=>{
+        if(gameState!==GAMESTATE.RUN) return;
         let {name}=target;
         setDirection(name);
     }
@@ -48,9 +55,21 @@ function Game(){
             default: setGameState(GAMESTATE.READY);break;
         }
     }
-    // 键盘控制方向
+    // 键盘控制方向和暂停
     const handleKeyBoardControl=({keyCode})=>{
-        setDirection(KEY_CODES_MAPPER[keyCode]);
+        let cur_gameState=statusRef.current;
+        if(keyCode===32){
+            if(cur_gameState==GAMESTATE.PAUSE||cur_gameState==GAMESTATE.READY) setGameState(GAMESTATE.RUN);
+            else if(cur_gameState==GAMESTATE.RUN) setGameState(GAMESTATE.PAUSE);
+            else if(cur_gameState==GAMESTATE.OVER) {
+                setGameState(GAMESTATE.READY);
+                restart();
+            }
+            
+        }else if(cur_gameState==GAMESTATE.RUN&&keyCode<41&&keyCode>36){
+            setDirection(KEY_CODES_MAPPER[keyCode]);
+        }
+            
     
     }
     useEffect(()=>{
@@ -60,6 +79,12 @@ function Game(){
             window.removeEventListener("keyup",handleKeyBoardControl,false);
         }
     },[]);
+    //防止手动点击按钮后再space会继续点击该按钮
+    useEffect(()=>{
+        window.addEventListener("click",(e)=>{
+            e.target.blur();
+        });
+    });
 
     // 蛇移动定时器
     useEffect(()=>{
