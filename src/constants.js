@@ -25,9 +25,13 @@ export const KEY_CODES_MAPPER = {
     40: 'BOTTOM',
 };
 
+//游戏状态
 export const GAMESTATE={
     READY:'ready',
     RUN:'run',
     PAUSE:'pause',
     OVER:'over'
 };
+
+//蛇移动速度
+export const FREQ=200;

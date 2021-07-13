@@ -1,9 +1,9 @@
 import Board from "./Board";
 import InfoWrapper from "./InfoWrapper";
 import Control from "./Control";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { eatFood, eatSelf, getCurTime, getHighest, updateHighest } from "../tools";
-import { DIRECTIONS, DIRECTION_TICKS, GAMESTATE, KEY_CODES_MAPPER } from "../constants";
+import { DIRECTIONS, DIRECTION_TICKS, FREQ, GAMESTATE, KEY_CODES_MAPPER } from "../constants";
 import { getRandomCoordinate, getRandomFood, getSnakeHead, hitBorder } from "../tools";
 
 function Game(){
@@ -48,7 +48,7 @@ function Game(){
                     setGameState(GAMESTATE.RUN);
                 break;
             case "pause": 
-                if(gameState!==GAMESTATE.OVER)
+                if(gameState!==GAMESTATE.OVER&&gameState!==GAMESTATE.READY)
                     setGameState(GAMESTATE.PAUSE);
                 break;
             case "restart": setGameState(GAMESTATE.READY);restart();break;
@@ -91,14 +91,16 @@ function Game(){
         if(gameState===GAMESTATE.RUN){
             let timer=setInterval(()=>{
                 setCount(c=>c+1);
-            },200);
+            },FREQ);
             return ()=>{
                 clearInterval(timer);
             }
         }
     },[gameState]);
 
+    
     // 蛇移动，更新各类状态
+    // 这个地方还是不好，依赖项不行，看来只能用useReducer了
     useEffect(()=>{
         let cur=getSnakeHead(snake);
         let new_head=DIRECTION_TICKS[direction](cur.x,cur.y);
