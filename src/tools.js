@@ -39,6 +39,7 @@ export const getHighest = () => {
     let score = localStorage.getItem("snake-hs");
     return score == undefined ? 0 : score;
 }
+
 //刷新最高分
 export const updateHighest = (score, hs) => {
     let max = Math.max(hs, score);

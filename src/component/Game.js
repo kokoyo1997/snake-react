@@ -1,14 +1,13 @@
 import Board from "./Board";
 import InfoWrapper from "./InfoWrapper";
 import Control from "./Control";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState } from "react";
 import { eatFood, eatSelf, getCurTime, getHighest, updateHighest } from "../tools";
 import { DIRECTIONS, DIRECTION_TICKS, FREQ, GAMESTATE, KEY_CODES_MAPPER } from "../constants";
 import { getRandomCoordinate, getRandomFood, getSnakeHead, hitBorder } from "../tools";
 
 function Game(){
     const [time,setTime]=useState(getCurTime());
-    const [highScore,setHighScore]=useState(getHighest());
 
     const [snake,setSnake]=useState([getRandomCoordinate()]);
     const [food,setFood]=useState(getRandomFood(snake));
@@ -59,26 +58,25 @@ function Game(){
     const handleKeyBoardControl=({keyCode})=>{
         let cur_gameState=statusRef.current;
         if(keyCode===32){
-            if(cur_gameState==GAMESTATE.PAUSE||cur_gameState==GAMESTATE.READY) setGameState(GAMESTATE.RUN);
-            else if(cur_gameState==GAMESTATE.RUN) setGameState(GAMESTATE.PAUSE);
-            else if(cur_gameState==GAMESTATE.OVER) {
+            if(cur_gameState===GAMESTATE.PAUSE||cur_gameState===GAMESTATE.READY) setGameState(GAMESTATE.RUN);
+            else if(cur_gameState===GAMESTATE.RUN) setGameState(GAMESTATE.PAUSE);
+            else if(cur_gameState===GAMESTATE.OVER) {
                 setGameState(GAMESTATE.READY);
                 restart();
             }
             
-        }else if(cur_gameState==GAMESTATE.RUN&&keyCode<41&&keyCode>36){
+        }else if(cur_gameState===GAMESTATE.RUN&&KEY_CODES_MAPPER[keyCode]){
             setDirection(KEY_CODES_MAPPER[keyCode]);
         }
             
-    
     }
     useEffect(()=>{
         window.addEventListener("keyup",handleKeyBoardControl,false);
-
         return ()=>{
             window.removeEventListener("keyup",handleKeyBoardControl,false);
         }
     },[]);
+
     //防止手动点击按钮后再space会继续点击该按钮
     useEffect(()=>{
         window.addEventListener("click",(e)=>{
@@ -100,7 +98,9 @@ function Game(){
 
     
     // 蛇移动，更新各类状态
-    // 这个地方还是不好，依赖项不行，看来只能用useReducer了
+    // 这个地方还是不好，依赖项lie，看来只能用useReducer了(删除该行)
+    // 用useReducer改了一遍，感觉还不如目前这样呢，参考的别人的代码，定时器疯狂清除重建。。
+    // 但是useReducer用来管理复杂的状态，确实更简单
     useEffect(()=>{
         let cur=getSnakeHead(snake);
         let new_head=DIRECTION_TICKS[direction](cur.x,cur.y);
@@ -109,8 +109,7 @@ function Game(){
         
         if(hitBorder(new_snake)){
             setGameState(GAMESTATE.OVER);
-            updateHighest(score,highScore);
-            setHighScore(getHighest());
+            updateHighest(score,getHighest());
             return;
         }else{
             let eatSelfIdx=eatSelf(new_snake);
@@ -154,7 +153,7 @@ function Game(){
                     <InfoWrapper 
                         time={time}
                         score={score}
-                        hs={highScore}
+                        hs={getHighest()}
                         gs={gameState}
                     />
                     <Control 
