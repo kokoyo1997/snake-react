@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/snake-react/static/css/main.2caa6516.chunk.css",
-    "main.js": "/snake-react/static/js/main.a00be679.chunk.js",
-    "main.js.map": "/snake-react/static/js/main.a00be679.chunk.js.map",
+    "main.css": "/snake-react/static/css/main.ea4bca63.chunk.css",
+    "main.js": "/snake-react/static/js/main.477a8d69.chunk.js",
+    "main.js.map": "/snake-react/static/js/main.477a8d69.chunk.js.map",
     "runtime-main.js": "/snake-react/static/js/runtime-main.8fb591e2.js",
     "runtime-main.js.map": "/snake-react/static/js/runtime-main.8fb591e2.js.map",
     "static/js/2.896bed5a.chunk.js": "/snake-react/static/js/2.896bed5a.chunk.js",
     "static/js/2.896bed5a.chunk.js.map": "/snake-react/static/js/2.896bed5a.chunk.js.map",
     "index.html": "/snake-react/index.html",
-    "static/css/main.2caa6516.chunk.css.map": "/snake-react/static/css/main.2caa6516.chunk.css.map",
+    "static/css/main.ea4bca63.chunk.css.map": "/snake-react/static/css/main.ea4bca63.chunk.css.map",
     "static/js/2.896bed5a.chunk.js.LICENSE.txt": "/snake-react/static/js/2.896bed5a.chunk.js.LICENSE.txt",
     "static/media/iconfont.css": "/snake-react/static/media/iconfont.6fb5cc95.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.8fb591e2.js",
     "static/js/2.896bed5a.chunk.js",
-    "static/css/main.2caa6516.chunk.css",
-    "static/js/main.a00be679.chunk.js"
+    "static/css/main.ea4bca63.chunk.css",
+    "static/js/main.477a8d69.chunk.js"
   ]
 }
