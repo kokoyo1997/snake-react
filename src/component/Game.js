@@ -14,6 +14,7 @@ function Game(){
     const [score,setScore]=useState(0);
     const [direction,setDirection]=useState(DIRECTIONS.UP);
     const [gameState,setGameState]=useState(GAMESTATE.READY);
+    const [freq,setFreq]=useState(200);
 
     const [count,setCount]=useState(0);//用来指示蛇的更新
     
@@ -29,6 +30,7 @@ function Game(){
         setFood(getRandomFood(snake));
         setScore(0);
         setDirection(DIRECTIONS.UP);
+        setFreq(FREQ);
     }
 
     //控制方向 
@@ -89,12 +91,12 @@ function Game(){
         if(gameState===GAMESTATE.RUN){
             let timer=setInterval(()=>{
                 setCount(c=>c+1);
-            },FREQ);
+            },freq);
             return ()=>{
                 clearInterval(timer);
             }
         }
-    },[gameState]);
+    },[gameState,freq]);
 
     
     // 蛇移动，更新各类状态
@@ -129,6 +131,18 @@ function Game(){
         setSnake(new_snake);
     },[count]);
 
+    useEffect(()=>{
+        
+        setFreq(level=>(()=>{
+            if(score>3000) return Math.min(level,100);
+            else if(score>1000) return Math.min(level,150);
+            else if(score>500) return Math.min(level,180);
+            return level;
+        })());
+        // setFreq(level=>score>3000? Math.min(level,100):score>1000?Math.min(level,150):score>500? Math.min(level,180):level);
+      
+    },[score]);
+
 
     //更新当前时间
     useEffect(()=>{
@@ -155,6 +169,7 @@ function Game(){
                         score={score}
                         hs={getHighest()}
                         gs={gameState}
+                        level={freq}
                     />
                     <Control 
                         handleControl={handleControl}
